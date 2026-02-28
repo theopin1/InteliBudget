@@ -1,0 +1,22 @@
+# Build
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Logs
+*.log
+
+# Arquivos locais de configuração
+appsettings.Development.json
+
+# Rider / VS Code
+.idea/
+.vscode/
+
+# Sistema
+.DS_Store
+Thumbs.db

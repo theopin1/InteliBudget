@@ -1,0 +1,6 @@
+@IntelliBudgetApi_HostAddress = http://localhost:5062
+
+GET {{IntelliBudgetApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
