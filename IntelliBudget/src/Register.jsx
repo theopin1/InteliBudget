@@ -1,3 +1,4 @@
+    import './Register.css';
     import { useRef, useState, useEffect } from "react";
     import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
     import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,15 +7,21 @@
 
     const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
     const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const Register = () =>
     {
         const userRef = useRef();
+        const emailRef = useRef();
         const errRef = useRef();
 
         const [user, setUser] = useState('');
         const [validName, setValidName] = useState(false);
         const [userFocus, setUserFocus] = useState(false);
+
+        const [email, setEmail] = useState('');
+        const [validEmail, setValidEmail] = useState(false);
+        const [emailFocus, setEmailFocus] = useState(false);
 
         const [pwd, setPwd] = useState('');
         const [validPwd, setValidPwd] = useState(false);
@@ -39,6 +46,11 @@
             console.log(user);
             setValidName(result);
         },[user])
+
+        useEffect(() => {
+            const result = EMAIL_REGEX.test(email);
+            setValidEmail(result);
+        }, [email])
 
         useEffect(() =>
         {        
@@ -68,7 +80,7 @@
             try {
                     const response = await axios.post(REGISTER_URL, {
                         nome: user,
-                        email: user + "@teste.com",
+                        email: email,
                         senha: pwd
                     });
                 console.log(response.data);
@@ -97,13 +109,15 @@
                     </p>
                 </section>
             ) : (
-            <section>
+            <section className="register">
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} 
                 aria-live="assertive">{errMsg}</p>
+                <div className="register-image">
+                    <img src="src/assets/Gemini_Generated_Image_zcgzbbzcgzbbzcgz.png" alt="login" />
+                </div>
                 <h1>Register</h1>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="username">
-                        Username:
                         <span className={validName ? "valid" : "hide"}>
                             <FontAwesomeIcon icon={faCheck} />
                         </span>
@@ -119,6 +133,7 @@
                         onChange={(e) => setUser(e.target.value)}
                         value={user}
                         required
+                        placeholder='Nome'
                         aria-invalid={validName ? "false" : "true"}
                         aria-describedby="uidnote"
                         onFocus={() => setUserFocus(true)}
@@ -131,8 +146,37 @@
                         Letters, numbers, underscores, hyphens allowed.
                     </p>
 
+                    <label htmlFor="email">
+                        <span className={validEmail ? "valid" : "hide"}>
+                            <FontAwesomeIcon icon={faCheck} />
+                        </span>
+                        <span className={validEmail || !email ? "hide" : "invalid"}>
+                            <FontAwesomeIcon icon={faTimes} />
+                        </span> 
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        ref={emailRef}
+                        autoComplete="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                        required
+                        placeholder='Email'
+                        aria-invalid={validEmail ? "false" : "true"}
+                        aria-describedby="emailnote"
+                        onFocus={() => setEmailFocus(true)}
+                        onBlur={() => setEmailFocus(false)}
+                    />
+                    <p id="emailnote" className={emailFocus && email && !validEmail ? "instructions" : "offscreen"}>
+                        <FontAwesomeIcon icon={faInfoCircle} />
+                        4 to 24 characters. 
+                        Must begin with a letter. 
+                        Letters, numbers, underscores, hyphens allowed.
+                    </p>
+
+
                     <label htmlFor="password">
-                        Password:
                         <span className={validPwd ? "valid" : "hide"}>
                             <FontAwesomeIcon icon={faCheck} />
                         </span>
@@ -146,6 +190,7 @@
                         onChange={(e) => setPwd(e.target.value)}
                         value={pwd}
                         required
+                        placeholder='Senha'
                         aria-invalid={validPwd ? "false" : "true"}
                         aria-describedby="pwdnote"
                         onFocus={() => setPwdFocus(true)}
@@ -158,7 +203,6 @@
                     </p>
 
                     <label htmlFor="confirm_pwd">
-                        Confirm Password:
                         <span className={validMatch && matchPwd? "valid" : "hide"}>
                             <FontAwesomeIcon icon={faCheck} />
                         </span>
@@ -171,6 +215,7 @@
                         id="confirm_pwd"
                         onChange={(e) => setMatchPwd(e.target.value)}
                         required
+                        placeholder='Confirmar senha'
                         aria-invalid={validMatch ? "false" : "true"}
                         aria-describedby="confirmnote"
                         onFocus={() => setMatchFocus(true)}
@@ -181,7 +226,7 @@
                         Must match the first password input field.
                     </p>
 
-                    <button disabled={!validName || !validPwd || !validMatch ? true : false}>
+                    <button disabled={!validName || !validEmail || !validPwd || !validMatch ? true : false}>
                         Sign Up
                     </button>
                 </form>
