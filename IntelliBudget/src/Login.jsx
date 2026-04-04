@@ -1,3 +1,4 @@
+import './Login.css';
 import{ useRef, useState, useEffect, useContext} from 'react';
 import AuthContext from './Context/AuthProvider';
 import axios from './Api/axios';
@@ -9,7 +10,7 @@ const Login = () => {
     const userRef = useRef();
     const errRef = useRef();
 
-    const [user, setUser] = useState('');
+    const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
@@ -22,7 +23,7 @@ const Login = () => {
     useEffect(() =>
     {
         setErrMsg('');
-    }, [user, pwd])
+    }, [email, pwd])
 
     const handleSubmit = async (e) =>
     {
@@ -30,8 +31,7 @@ const Login = () => {
 
         try {
             const response = await axios.post(LOGIN_URL, {
-                nome: user,
-                email: user + "@teste.com",
+                email: email,
                 senha: pwd
             },
             {
@@ -39,17 +39,17 @@ const Login = () => {
                 withCredentials: true
             }
             );
-            console.log(JSON.stringify(response?.data));
+            console.log(JSON.stringify(response));
 
-            setAuth({ nome: user, senha: pwd });
-            setUser('');
+            setAuth({ email: email, senha: pwd });
+            setEmail('');
             setPwd('');
             setSuccess(true);
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
+                setErrMsg('Missing Email or Password');
             } else if (err.response?.status === 401) {
                 setErrMsg('Unauthorized');
             } else {
@@ -70,27 +70,30 @@ const Login = () => {
                     <p><a href="#">Go to Home</a></p>
                 </section>
             ) : (
-        <section>
+        <section className="login">
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} 
             aria-live="assertive">{errMsg}</p>
+            <div className="login-image">
+                <img src="src/assets/Gemini_Generated_Image_zcgzbbzcgzbbzcgz.png" alt="login" />
+            </div>
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username: </label>
                 <input
-                    type="text"
-                    id="username"
+                    type="email"
+                    id="email"
                     ref={userRef}
-                    autoComplete="off"
-                    onChange = {(e) => setUser(e.target.value)}
-                    value = {user}
+                    autoComplete="email"
+                    onChange = {(e) => setEmail(e.target.value)}
+                    value = {email}
+                    placeholder='Email'
                     required
                 />
-                <label htmlFor="password">Password: </label>
                 <input
                     type="password"
                     id="password"
                     onChange = {(e) => setPwd(e.target.value)}
                     value = {pwd}
+                    placeholder='Senha'
                     required
                 />
                 <button>Login</button>

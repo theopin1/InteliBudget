@@ -1,7 +1,11 @@
-﻿using IntelliBudgetApi.Infra.Data;
+﻿using IntelliBudgetApi.Application.Services;
+using IntelliBudgetApi.Infra.Data;
 using IntelliBudgetApi.Infra.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 
 namespace IntelliBudgetApi.Application.Commands
@@ -9,10 +13,13 @@ namespace IntelliBudgetApi.Application.Commands
     public class LoginRequestCommandHandler : IRequestHandler<LoginRequestCommand, LoginResponse>
     {
             private readonly DataContext _context;
-
-            public LoginRequestCommandHandler(DataContext context)
+            private readonly IPasswordHasher<Usuario> _passwordHasher;
+            private readonly ITokenService _tokenService;
+            public LoginRequestCommandHandler(DataContext context, IPasswordHasher<Usuario> passwordHasher, ITokenService tokenService)
             {
                 _context = context;
+                _passwordHasher = passwordHasher;
+                _tokenService = tokenService;
             }
 
             public async Task<LoginResponse> Handle(LoginRequestCommand request, CancellationToken cancellationToken)
@@ -23,13 +30,28 @@ namespace IntelliBudgetApi.Application.Commands
                 if (usuario == null)
                     throw new Exception("Usuário não encontrado");
 
-                if (usuario.Senha != request.Senha)
-                    throw new Exception("Senha inválida");
+                var senhaValida = _passwordHasher.VerifyHashedPassword(usuario, usuario.Senha, request.Senha);
 
-                return new LoginResponse
+                if (senhaValida != PasswordVerificationResult.Success)
                 {
-                    Message = "Login realizado com sucesso"
+                throw new Exception("Senha inválida.");
+                }
+
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+                    new Claim(ClaimTypes.Email, usuario.Email)
                 };
-            }
+
+            var token = _tokenService.GerarToken(claims);
+                 var refreshToken = _tokenService.GerarRefreshToken();
+
+                 return new LoginResponse
+                 {
+                    Message = "Login realizado com sucesso",
+                    Token = new JwtSecurityTokenHandler().WriteToken(token),
+                    RefreshToken = refreshToken
+                };
+        }
     }
 }
