@@ -1,6 +1,7 @@
 ﻿using IntelliBudgetApi.Application.Commands;
 using IntelliBudgetApi.Application.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -8,6 +9,7 @@ namespace IntelliBudgetApi.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UsuariosController : ControllerBase
     {
         private readonly IMediator _mediator;
