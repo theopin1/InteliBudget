@@ -9,7 +9,6 @@ namespace IntelliBudgetApi.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class UsuariosController : ControllerBase
     {
         private readonly IMediator _mediator;
