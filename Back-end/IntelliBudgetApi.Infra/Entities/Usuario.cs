@@ -12,8 +12,7 @@ namespace IntelliBudgetApi.Infra.Entities
         public string Nome { get; set; } = null!;
         public string? Email { get; set; }
         public string Senha { get; set; } = null!;
-
-
-
+        public string? CPF { get; set; }
+        public DateTime DataCriacao { get; set; }
     }
 }
