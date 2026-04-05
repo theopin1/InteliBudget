@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntelliBudgetApi.Application.Commands
+namespace IntelliBudgetApi.Application.Commands.UsuarioCommands
 {
-    internal class DeletarUsuarioCommandHandlerValidator
+    internal class AtualizarUsuarioCommandHandlerValidator
     {
     }
 }

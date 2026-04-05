@@ -9,7 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 
-namespace IntelliBudgetApi.Application.Commands
+namespace IntelliBudgetApi.Application.Commands.LoginCommands
 {
     public class LoginRequestCommandHandler : IRequestHandler<LoginRequestCommand, LoginResponseDto>
     {

@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntelliBudgetApi.Application.Commands
+namespace IntelliBudgetApi.Application.Queries.PluggyQueries
 {
-    public class DeletarUsuarioCommand : IRequest<bool>
+    public class BuscarPluggyAccessTokenQuery : IRequest<string>
     {
-        public int Id { get; set; }
     }
 }

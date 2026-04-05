@@ -1,9 +1,9 @@
-﻿using IntelliBudgetApi.Application.Commands;
+﻿using IntelliBudgetApi.Application.Commands.LoginCommands;
 using IntelliBudgetApi.Infra.Data;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-    
+
 namespace IntelliBudgetApi.Api.Controllers
 {
     [ApiController]
