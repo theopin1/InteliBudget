@@ -1,5 +1,5 @@
-﻿using IntelliBudgetApi.Application.Commands;
-using IntelliBudgetApi.Application.Queries;
+﻿using IntelliBudgetApi.Application.Commands.UsuarioCommands;
+using IntelliBudgetApi.Application.Queries.UsuarioQueries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

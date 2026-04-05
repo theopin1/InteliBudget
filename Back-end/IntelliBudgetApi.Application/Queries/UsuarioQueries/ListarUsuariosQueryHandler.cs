@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntelliBudgetApi.Application.Queries
+namespace IntelliBudgetApi.Application.Queries.UsuarioQueries
 {
-    internal class ListarUsuariosQuery
+    public class ListarUsuariosQueryHandler
     {
     }
 }

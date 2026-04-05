@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntelliBudgetApi.Application.Commands
+namespace IntelliBudgetApi.Application.Commands.UsuarioCommands
 {
     public class DeletarUsuarioCommandHandler : IRequestHandler<DeletarUsuarioCommand, bool>
     {

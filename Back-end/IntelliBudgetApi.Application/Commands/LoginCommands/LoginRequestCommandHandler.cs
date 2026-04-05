@@ -1,4 +1,5 @@
-﻿using IntelliBudgetApi.Application.Services;
+﻿using IntelliBudgetApi.Application.DTO;
+using IntelliBudgetApi.Application.Services;
 using IntelliBudgetApi.Infra.Data;
 using IntelliBudgetApi.Infra.Entities;
 using MediatR;
@@ -8,9 +9,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 
-namespace IntelliBudgetApi.Application.Commands
+namespace IntelliBudgetApi.Application.Commands.LoginCommands
 {
-    public class LoginRequestCommandHandler : IRequestHandler<LoginRequestCommand, LoginResponse>
+    public class LoginRequestCommandHandler : IRequestHandler<LoginRequestCommand, LoginResponseDto>
     {
             private readonly DataContext _context;
             private readonly IPasswordHasher<Usuario> _passwordHasher;
@@ -22,7 +23,7 @@ namespace IntelliBudgetApi.Application.Commands
                 _tokenService = tokenService;
             }
 
-            public async Task<LoginResponse> Handle(LoginRequestCommand request, CancellationToken cancellationToken)
+            public async Task<LoginResponseDto> Handle(LoginRequestCommand request, CancellationToken cancellationToken)
             {
                 var usuario = await _context.Usuarios
                     .FirstOrDefaultAsync(u => u.Email == request.Email, cancellationToken);
@@ -43,10 +44,10 @@ namespace IntelliBudgetApi.Application.Commands
                     new Claim(ClaimTypes.Email, usuario.Email)
                 };
 
-            var token = _tokenService.GerarToken(claims);
+                var token = _tokenService.GerarToken(claims);
                  var refreshToken = _tokenService.GerarRefreshToken();
 
-                 return new LoginResponse
+                 return new LoginResponseDto
                  {
                     Message = "Login realizado com sucesso",
                     Token = new JwtSecurityTokenHandler().WriteToken(token),

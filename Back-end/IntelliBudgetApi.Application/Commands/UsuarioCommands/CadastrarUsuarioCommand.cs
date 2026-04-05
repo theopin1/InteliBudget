@@ -6,13 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntelliBudgetApi.Application.Commands
+namespace IntelliBudgetApi.Application.Commands.UsuarioCommands
 {
-    public class AtualizarUsuarioCommand : IRequest<UsuarioDto>
+    public class CadastrarUsuarioCommand : IRequest<UsuarioDto>
     {
-        public int Id { get; set; }
         public string? Nome { get; set; }
-        public string? Email { get; set; }
+        public string? Email { get; set; } = "teste@gmail.com";
         public string? Senha { get; set; }
 
     }

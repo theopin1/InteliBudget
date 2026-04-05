@@ -4,7 +4,7 @@ using IntelliBudgetApi.Infra.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace IntelliBudgetApi.Application.Commands
+namespace IntelliBudgetApi.Application.Commands.UsuarioCommands
 {
     public class CadastrarUsuarioCommandHandler : IRequestHandler<CadastrarUsuarioCommand, UsuarioDto>
     {

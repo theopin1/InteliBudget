@@ -10,9 +10,11 @@ namespace IntelliBudgetApi.Application.DTO
     public class UsuarioDto
     {
         public int Id { get; set; }
-        public string? Nome { get; set; }
+        public string Nome { get; set; } = null!;
         public string? Email { get; set; }
-        public string? Senha { get; set; }
+        public string Senha { get; set; } = null!;
+        public string? CPF { get; set; }
+        public DateTime DataCriacao { get; set; }
 
 
         public static UsuarioDto From(Usuario usuario)

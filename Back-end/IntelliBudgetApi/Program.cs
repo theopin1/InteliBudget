@@ -1,5 +1,5 @@
 using IntelliBudgetApi.Api.Controllers;
-using IntelliBudgetApi.Application.Commands;
+using IntelliBudgetApi.Application.Commands.UsuarioCommands;
 using IntelliBudgetApi.Application.Services;
 using IntelliBudgetApi.Infra.Data;
 using IntelliBudgetApi.Infra.Entities;
@@ -96,6 +96,8 @@ builder.Services
                 Encoding.UTF8.GetBytes(key))
         };
     });
+
+builder.Services.AddHttpClient<PluggyService>();
 
 var app = builder.Build();
 
