@@ -14,7 +14,7 @@ html {
 
 body {
     min-height: 100vh;
-    background-color: rgb(92, 95, 98);
+    background-color: rgb(40, 103, 165);
     font-family: 'Quicksand', sans-serif;
 
 }
@@ -22,10 +22,7 @@ body {
 .App {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh; 
-  padding: 1rem 0.5rem;
 }
 
 section {

@@ -1,7 +1,7 @@
 import './Login.css';
 import{ useRef, useState, useEffect, useContext} from 'react';
-import AuthContext from './Context/AuthProvider';
-import axios from './Api/axios';
+import AuthContext from '../../Context/AuthProvider';
+import axios from '../../Api/axios';
 
 const LOGIN_URL = '/auth/login';
 
@@ -70,42 +70,44 @@ const Login = () => {
                     <p><a href="#">Go to Home</a></p>
                 </section>
             ) : (
-        <section className="login">
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} 
-            aria-live="assertive">{errMsg}</p>
-            <div className="login-image">
-                <img src="src/assets/Gemini_Generated_Image_zcgzbbzcgzbbzcgz.png" alt="login" />
-            </div>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="email"
-                    id="email"
-                    ref={userRef}
-                    autoComplete="email"
-                    onChange = {(e) => setEmail(e.target.value)}
-                    value = {email}
-                    placeholder='Email'
-                    required
-                />
-                <input
-                    type="password"
-                    id="password"
-                    onChange = {(e) => setPwd(e.target.value)}
-                    value = {pwd}
-                    placeholder='Senha'
-                    required
-                />
-                <button>Login</button>
-                <p>
-                    Need an Account?<br />
-                    <span className="line">
-                        {/*put router link here*/}
-                        <a href="#">Sign Up</a>
-                    </span>
-                </p>
-            </form>
-        </section>
+        <div className="login-container">
+            <section className="login">
+                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} 
+                aria-live="assertive">{errMsg}</p>
+                <div className="login-image">
+                    <img src="src\assets\IntelliBudgetLogo.png" alt="login" />
+                </div>
+                <h1>Login</h1>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="email"
+                        id="email"
+                        ref={userRef}
+                        autoComplete="email"
+                        onChange = {(e) => setEmail(e.target.value)}
+                        value = {email}
+                        placeholder='Email'
+                        required
+                    />
+                    <input
+                        type="password"
+                        id="password"
+                        onChange = {(e) => setPwd(e.target.value)}
+                        value = {pwd}
+                        placeholder='Senha'
+                        required
+                    />
+                    <button>Login</button>
+                    <p>
+                        Need an Account?<br />
+                        <span className="line">
+                            {/*put router link here*/}
+                            <a href="#">Sign Up</a>
+                        </span>
+                    </p>
+                </form>
+            </section>
+        </div>
             )}
         </>
     );
