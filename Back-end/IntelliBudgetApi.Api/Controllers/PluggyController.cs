@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 namespace IntelliBudgetApi.Api.Controllers
 {
     [ApiController]
-    [Authorize]
     [Route("api/[controller]")]
     public class PluggyController : ControllerBase
     {

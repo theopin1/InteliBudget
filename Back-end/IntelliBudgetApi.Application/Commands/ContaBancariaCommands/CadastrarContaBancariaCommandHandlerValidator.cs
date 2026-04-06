@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntelliBudgetApi.Application.Commands.UsuarioCommands
+namespace IntelliBudgetApi.Application.Commands.ContaBancariaCommands
 {
-    internal class DeletarUsuarioCommandHandlerValidator
+    internal class CadastrarContaBancariaCommandHandlerValidator
     {
     }
 }

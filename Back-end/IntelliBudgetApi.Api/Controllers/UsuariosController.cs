@@ -38,7 +38,7 @@ namespace IntelliBudgetApi.Api.Controllers
             return Ok(resultado); ;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Buscar([FromQuery] BuscarUsuarioPorIdQuery usuarioCommand, CancellationToken cancellationToken)
         {
             var resultado = await _mediator.Send(usuarioCommand, cancellationToken);

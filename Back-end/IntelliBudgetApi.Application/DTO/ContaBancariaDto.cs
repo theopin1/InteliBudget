@@ -12,7 +12,19 @@ namespace IntelliBudgetApi.Application.DTO
         public int Id { get; set; }
         public string? NomeBanco { get; set; }
         public string? TipoConta { get; set; }
-        public Usuario? Usuario { get; set; }
+        public int UsuarioId { get; set; }
         public int Saldo { get; set; }
+
+        public static ContaBancariaDto From(ContaBancaria contaBancaria)
+        {
+            return new ContaBancariaDto
+            {
+                Id = contaBancaria.Id,
+                NomeBanco = contaBancaria.NomeBanco,
+                TipoConta = contaBancaria.TipoConta,
+                UsuarioId = contaBancaria.UsuarioId,
+                Saldo = contaBancaria.Saldo
+            };
+        }
     }
 }
