@@ -1,0 +1,31 @@
+﻿using IntelliBudgetApi.Application.DTO;
+using IntelliBudgetApi.Infra.Entities;
+using IntelliBudgetApi.Infra.Enums;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace IntelliBudgetApi.Application.Commands.TransacaoCommands
+{
+    public class CadastrarTransacaoCommand : IRequest<TransacaoDto>
+    {
+        public TipoTransacao Tipo { get; set; }
+        public DateTime DataTransacao { get; set; }
+        public int Valor { get; set; }
+        public int CategoriaId { get; set; }
+        public int ContaBancariaId { get; set; }
+
+        public void Atualizar(Transacao transacao) 
+         
+        {
+            transacao.Tipo = Tipo;
+            transacao.DataTransacao = DataTransacao;
+            transacao.Valor = Valor;
+            transacao.CategoriaId = CategoriaId;
+            transacao.ContaBancariaId = ContaBancariaId;
+        }
+    }
+}
