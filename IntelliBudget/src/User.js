@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
-import axios from "../Api/Axios";
-import { sign } from "node:crypto";
+import useAxiosPrivate from "../Hooks/useAxiosPrivate ";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const User = () => 
 {
     const [user, setUser] = useState(null);
+    const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const location = useLocation(); 
 
     useEffect(() => 
     {
@@ -15,12 +18,13 @@ const User = () =>
         {
             try 
             {
-                const response = await axios.get('/user', {signal: controller.signal});
+                const response = await axiosPrivate.get('/user', {signal: controller.signal});
                 console.log(response.data);
                 isMounted && setUser(response.data);
             } catch (err)
                 {
                     console.error(err);
+                    navigate('/login', { state: { from: location }, replace: true }); 
                 }
         };
 
