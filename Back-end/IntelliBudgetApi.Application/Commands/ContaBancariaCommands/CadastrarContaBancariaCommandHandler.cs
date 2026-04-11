@@ -30,7 +30,7 @@ namespace IntelliBudgetApi.Application.Commands.ContaBancariaCommands
             {
                 NomeBanco = request.NomeBanco,
                 TipoConta = request.TipoConta,
-                UsuarioId = request.UsuarioId,
+                UsuarioId = 7,
                 Saldo = request.Saldo
             };
 

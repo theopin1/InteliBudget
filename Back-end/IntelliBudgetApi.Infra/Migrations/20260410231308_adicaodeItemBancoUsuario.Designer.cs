@@ -4,6 +4,7 @@ using IntelliBudgetApi.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntelliBudgetApi.Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20260410231308_adicaodeItemBancoUsuario")]
+    partial class adicaodeItemBancoUsuario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,8 +89,8 @@ namespace IntelliBudgetApi.Infra.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -102,10 +105,10 @@ namespace IntelliBudgetApi.Infra.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CategoriaId")
+                    b.Property<int>("CategoriaId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ContaBancariaId")
+                    b.Property<int>("ContaBancariaId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataTransacao")
@@ -171,11 +174,15 @@ namespace IntelliBudgetApi.Infra.Migrations
                 {
                     b.HasOne("IntelliBudgetApi.Infra.Entities.Categoria", "Categoria")
                         .WithMany()
-                        .HasForeignKey("CategoriaId");
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("IntelliBudgetApi.Infra.Entities.ContaBancaria", "ContaBancaria")
                         .WithMany()
-                        .HasForeignKey("ContaBancariaId");
+                        .HasForeignKey("ContaBancariaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Categoria");
 

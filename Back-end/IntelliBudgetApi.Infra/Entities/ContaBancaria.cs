@@ -14,5 +14,6 @@ namespace IntelliBudgetApi.Infra.Entities
         public int UsuarioId { get; set; }
         public Usuario? Usuario { get; set; }
         public int Saldo { get; set; }
+        public int PluggyAccountId { get; set; }
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntelliBudgetApi.Application.Commands.TransacaoCommands
+namespace IntelliBudgetApi.Application.Commands.ItemBancoUsuarioCommands
 {
-    public class AtualizarTransacaoCommandHandlerValidator
+    internal class SyncContaCommandHandlerValidator
     {
     }
 }

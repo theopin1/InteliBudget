@@ -14,9 +14,9 @@ namespace IntelliBudgetApi.Infra.Entities
         public TipoTransacao Tipo { get; set; }
         public DateTime DataTransacao { get; set; }
         public int Valor { get; set; }
-        public int CategoriaId { get; set; }
+        public int? CategoriaId { get; set; }
         public Categoria? Categoria { get; set; }
-        public int ContaBancariaId { get; set; }
+        public int? ContaBancariaId { get; set; } //fazer mapeamento depois
         public ContaBancaria? ContaBancaria { get; set; }
     }
 }
