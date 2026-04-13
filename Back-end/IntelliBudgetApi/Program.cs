@@ -81,7 +81,8 @@ builder.Services
             OnMessageReceived = context =>
             {
                 var token = context.Request.Headers["Authorization"].ToString();
-                context.Token = token;
+                if (token.StartsWith("Bearer "))
+                    context.Token = token.Substring("Bearer ".Length);
                 return Task.CompletedTask;
             }
         };

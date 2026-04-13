@@ -1,12 +1,12 @@
 import './Login.css';
-import{ useRef, useState, useEffect, useContext} from 'react';
-import AuthContext from '../../Context/AuthProvider';
+import{ useRef, useState, useEffect } from 'react';
+import useAuth from '../../Hooks/useAuth';
 import axios from '../../Api/axios';
 
 const LOGIN_URL = '/auth/login';
 
 const Login = () => {
-    const { setAuth } = useContext(AuthContext);
+    const { setAuth } = useAuth();
     const userRef = useRef();
     const errRef = useRef();
 
@@ -41,7 +41,8 @@ const Login = () => {
             );
             console.log(JSON.stringify(response));
 
-            setAuth({ email: email, senha: pwd });
+            setAuth({ email: email, accessToken: response.data.token });
+            localStorage.setItem('accessToken', response.data.token);
             setEmail('');
             setPwd('');
             setSuccess(true);
@@ -64,11 +65,7 @@ const Login = () => {
     return (
         <> 
             {success ? (
-                <section>
-                    <h1>You are logged in!</h1>
-                    <br />
-                    <p><a href="#">Go to Home</a></p>
-                </section>
+               (() => { window.location.href = "/home"; return null; })()
             ) : (
         <div className="login-container">
             <section className="login">

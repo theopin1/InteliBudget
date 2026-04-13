@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using IntelliBudgetApi.Application.DTO;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,54 @@ namespace IntelliBudgetApi.Application.Services
             var result = await response.Content.ReadFromJsonAsync<JsonElement>();
 
             return result.GetProperty("accessToken").GetString();
+        }
+
+        public async Task<List<PluggyAccountDto>> GetAccountsAsync(string itemId)
+        {
+            var apiKey = await GetApiKeyAsync();
+            _httpClient.DefaultRequestHeaders.Clear();
+            _httpClient.DefaultRequestHeaders.Add("X-API-KEY", apiKey);
+
+            var response = await _httpClient.GetAsync($"https://api.pluggy.ai/accounts?itemId={itemId}");
+            var result = await response.Content.ReadFromJsonAsync<JsonElement>();
+
+            var accounts = new List<PluggyAccountDto>();
+            foreach (var item in result.GetProperty("results").EnumerateArray())
+            {
+                accounts.Add(new PluggyAccountDto
+                {
+                    Id = item.GetProperty("id").GetString(),
+                    Name = item.GetProperty("name").GetString(),
+                    Type = item.GetProperty("type").GetString(),
+                    Balance = item.GetProperty("balance").GetDecimal(),
+                });
+            }
+            return accounts;
+        }
+
+        public async Task<List<PluggyTransactionDto>> GetTransactionsAsync(string accountId, string from, string to)
+        {
+            var apiKey = await GetApiKeyAsync();
+            _httpClient.DefaultRequestHeaders.Clear();
+            _httpClient.DefaultRequestHeaders.Add("X-API-KEY", apiKey);
+
+            var response = await _httpClient.GetAsync(
+                $"https://api.pluggy.ai/transactions?accountId={accountId}&from={from}&to={to}"
+            );
+            var result = await response.Content.ReadFromJsonAsync<JsonElement>();
+
+            var transactions = new List<PluggyTransactionDto>();
+            foreach (var item in result.GetProperty("results").EnumerateArray())
+            {
+                transactions.Add(new PluggyTransactionDto
+                {
+                    Amount = item.GetProperty("amount").GetDecimal(),
+                    Date = item.GetProperty("date").GetDateTime(),
+                    Type = item.GetProperty("type").GetString(),
+                    Category = item.GetProperty("category").GetString(),
+                });
+            }
+            return transactions;
         }
     }
 }

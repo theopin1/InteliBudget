@@ -30,17 +30,19 @@ namespace IntelliBudgetApi.Api.Controllers
             return Ok(resultado);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Atualizar([FromBody] AtualizarContaBancariaCommand usuarioCommand, CancellationToken cancellationToken)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Atualizar(int id, [FromBody] AtualizarContaBancariaCommand usuarioCommand, CancellationToken cancellationToken)
         {
+            usuarioCommand.Id = id;
             var resultado = await _mediator.Send(usuarioCommand, cancellationToken);
             return Ok(resultado);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Remover([FromBody] DeletarContaBancariaCommand usuarioCommand, CancellationToken cancellationToken)
+        public async Task<IActionResult> Remover(int id, CancellationToken cancellationToken)
         {
-            var resultado = await _mediator.Send(usuarioCommand, cancellationToken);
+            var command = new DeletarContaBancariaCommand { Id = id };
+            var resultado = await _mediator.Send(command, cancellationToken);
             return Ok(resultado);
         }
 

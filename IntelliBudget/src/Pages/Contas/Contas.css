@@ -1,0 +1,22 @@
+.layout {
+    display: flex;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;  
+    align-items: flex-start;    
+    height: calc(100vh - 60px); 
+    font-size: 24px;
+}
+
+.conectar-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s;
+}

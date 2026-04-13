@@ -1,4 +1,5 @@
-﻿using IntelliBudgetApi.Application.Commands.TransacaoCommands;
+﻿using IntelliBudgetApi.Application.Commands.ContaBancariaCommands;
+using IntelliBudgetApi.Application.Commands.TransacaoCommands;
 using IntelliBudgetApi.Application.Queries.TransacaoQueries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -23,18 +24,20 @@ namespace IntelliBudgetApi.Api.Controllers
             return Ok(resultado); 
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Atualizar([FromBody] AtualizarTransacaoCommand usuarioCommand, CancellationToken cancellationToken)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Atualizar(int id, [FromBody] AtualizarTransacaoCommand usuarioCommand, CancellationToken cancellationToken)
         {
+            usuarioCommand.Id = id;
             var resultado = await _mediator.Send(usuarioCommand, cancellationToken);
             return Ok(resultado); 
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Remover([FromBody] DeletarTransacaoCommand usuarioCommand, CancellationToken cancellationToken)
+        public async Task<IActionResult> Remover(int id, CancellationToken cancellationToken)
         {
-            var resultado = await _mediator.Send(usuarioCommand, cancellationToken);
-            return Ok(resultado); 
+            var command = new DeletarTransacaoCommand { Id = id };
+            var resultado = await _mediator.Send(command, cancellationToken);
+            return Ok(resultado);
         }
 
         [HttpGet("{id}")]

@@ -33,7 +33,7 @@ namespace IntelliBudgetApi.Application.Commands.ContaBancariaCommands
             contaBancaria.Id = request.Id;
             contaBancaria.NomeBanco = request.NomeBanco;
             contaBancaria.TipoConta = request.TipoConta;
-            contaBancaria.UsuarioId = request.UsuarioId;
+            contaBancaria.UsuarioId = 7;
             contaBancaria.Saldo = request.Saldo;
 
             _context.ContasBancarias.Update(contaBancaria);
