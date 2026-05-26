@@ -35,16 +35,13 @@ const DataList = ({
     setIsOpen(false);
   };
 
-  const handleOpenEdit = (group) => {
-    const prefilled = {};
-    formFields.forEach((field, index) => {
-      prefilled[field.name] = group.fields[index]?.value ?? '';
-    });
-    setFormData(prefilled);
-    setEditingId(group.id);
-    setIsOpen(true);
+    const handleOpenEdit = (group) => {
+      const prefilled = group.rawValues ?? {};
+      setFormData(prefilled);
+      setEditingId(group.id);
+      setIsOpen(true);
   };
-
+  
   return (
     <div className="datalist-card" style={textColor ? { color: textColor } : {}}>
 
@@ -75,10 +72,10 @@ const DataList = ({
                     Editar
                   </button>
                 )}
-                {onDelete && (
-                  <button className="datalist-delete-btn" onClick={() => onDelete(group.id)}>
-                    Excluir
-                  </button>
+                 {onDelete && (
+                    <button className="datalist-delete-btn" onClick={() => onDelete(group.id)}>
+                        Excluir
+                    </button>
                 )}
               </div>
               {groupIndex < groups.length - 1 && (
@@ -100,18 +97,34 @@ const DataList = ({
             </div>
 
             <div className="datalist-form">
-              {formFields.map((field) => (
-                <div key={field.name} className="datalist-form-field">
-                  <label className="datalist-form-label">{field.label}</label>
-                  <input
-                    type={field.type || 'text'}
-                    value={formData[field.name] || ''}
-                    onChange={(e) => handleChange(field.name, e.target.value)}
-                    className="datalist-form-input"
-                    placeholder={field.placeholder || ''}
-                  />
-                </div>
-              ))}
+        {formFields.map((field) => (
+            <div key={field.name} className="datalist-form-field">
+                <label className="datalist-form-label">{field.label}</label>
+                
+                {field.type === 'select' ? (
+                    <select
+                        value={formData[field.name] || ''}
+                        onChange={(e) => handleChange(field.name, e.target.value)}
+                        className="datalist-form-input"
+                    >
+                        <option value="">Selecione...</option>
+                        {field.options?.map((opt) => (
+                            <option key={opt.value} value={opt.value}>
+                                {opt.label}
+                            </option>
+                        ))}
+                    </select>
+                ) : (
+                    <input
+                        type={field.type || 'text'}
+                        value={formData[field.name] || ''}
+                        onChange={(e) => handleChange(field.name, e.target.value)}
+                        className="datalist-form-input"
+                        placeholder={field.placeholder || ''}
+                    />
+                )}
+            </div>
+        ))}
             </div>
 
             <div className="datalist-modal-footer">

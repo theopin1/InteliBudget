@@ -1,196 +1,305 @@
-body{
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+body {
     color: rgba(0, 0, 0, 0.7);
 }
 
+/* ── Card container ── */
 .datalist-card {
-  padding: 10px;
-  width: 100%;
-  max-width: 100%;
+    padding: 24px;
+    width: 100%;
+    max-width: 100%;
+    font-family: 'DM Sans', sans-serif;
 }
 
+/* ── Header ── */
 .datalist-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .datalist-title {
-    border-bottom: 1px solid #2b262632;
-    margin: 0 1rem;
-    font-size: 24px;
-    padding: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin: 0;
+    padding: 0;
+    border: none;
 }
 
 .datalist-toggle-btn {
-  font-size: 20px;
-  padding: 6px 14px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  color: #fff;
-  transition: background 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: #1a1a1a;
+    color: #fff;
+    transition: background 0.2s, transform 0.15s;
 }
 
 .datalist-toggle-btn:hover {
-  background: #4338ca;
+    background: #333;
+    transform: translateY(-1px);
 }
 
+/* ── Lista ── */
 .datalist-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* cada transação vira um card */
+.datalist-group {
+    background: #ffffff;
+    border: 1px solid #e8e8e4;
+    border-radius: 14px;
+    padding: 16px 20px;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.datalist-group:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+    transform: translateY(-1px);
 }
 
 .datalist-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #f3f4f6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.datalist-item:not(:last-child) {
+    border-bottom: 1px solid #f3f4f6;
 }
 
 .datalist-label {
-  font-size: 0.9rem;
-  color: #6b7280;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #aaa;
 }
 
 .datalist-value {
-  font-size: 0.9rem;
-  font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #1a1a1a;
+}
+
+/* ── Ações ── */
+.datalist-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #f3f4f6;
+}
+
+.datalist-edit-btn,
+.datalist-delete-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.datalist-edit-btn {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.datalist-edit-btn:hover {
+    background: #e5e7eb;
+    transform: translateY(-1px);
+}
+
+.datalist-delete-btn {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.datalist-delete-btn:hover {
+    background: #fee2e2;
+    transform: translateY(-1px);
+}
+
+/* remove o hr antigo */
+.datalist-divider {
+    display: none;
 }
 
 .datalist-empty {
-  font-size: 0.9rem;
-  color: #9ca3af;
-  text-align: center;
-  padding: 16px 0;
+    font-size: 0.9rem;
+    color: #9ca3af;
+    text-align: center;
+    padding: 32px 0;
 }
 
-
+/* ── Modal overlay ── */
 .datalist-overlay {
-  position: fixed;
-  inset: 0; 
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  animation: fadeIn 0.2s ease;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
 }
 
 .datalist-modal {
-  background: #fff;
-  border-radius: 14px;
-  padding: 24px;
-  width: 100%;
-  max-width: 420px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-  animation: slideUp 0.2s ease;
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    animation: slideUp 0.2s ease;
 }
 
 .datalist-modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
 }
 
 .datalist-modal-title {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0;
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin: 0;
+    color: #1a1a1a;
 }
 
 .datalist-close-btn {
-  background: none;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  color: #9ca3af;
-  transition: color 0.2s;
+    background: #f3f4f6;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
 }
 
 .datalist-close-btn:hover {
-  color: #374151;
+    background: #e5e7eb;
+    color: #374151;
 }
 
+/* ── Formulário ── */
 .datalist-form {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 .datalist-form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .datalist-form-label {
-  font-size: 0.8rem;
-  color: #6b7280;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #9ca3af;
 }
 
 .datalist-form-input {
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  padding: 9px 12px;
-  font-size: 0.9rem;
-  outline: none;
-  transition: border-color 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    border: 1px solid #e8e8e4;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    outline: none;
+    background: #fafaf9;
+    color: #1a1a1a;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .datalist-form-input:focus {
-  border-color: #4f46e5;
+    border-color: #1a1a1a;
+    box-shadow: 0 0 0 3px rgba(26,26,26,0.06);
+    background: #fff;
 }
 
+/* ── Footer do modal ── */
 .datalist-modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 24px;
 }
 
 .datalist-cancel-btn {
-  padding: 8px 18px;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  background: #fff;
-  font-size: 0.9rem;
-  cursor: pointer;
-  color: #374151;
-  transition: background 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    padding: 9px 20px;
+    border-radius: 10px;
+    border: 1px solid #e8e8e4;
+    background: #fff;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: #374151;
+    transition: background 0.2s;
 }
 
 .datalist-cancel-btn:hover {
-  background: #f3f4f6;
+    background: #f3f4f6;
 }
 
 .datalist-submit-btn {
-  padding: 8px 18px;
-  background: #4f46e5;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    padding: 9px 20px;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
 }
 
 .datalist-submit-btn:hover {
-  background: #4338ca;
+    background: #333;
+    transform: translateY(-1px);
 }
 
-/* Animações */
+/* ── Animações ── */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+    from { transform: translateY(16px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
 }
