@@ -16,8 +16,7 @@ namespace IntelliBudgetApi.Application.Commands.TransacaoCommands
         public TipoTransacao Tipo { get; set; }
         public DateTime DataTransacao { get; set; }
         public int Valor { get; set; }
-        public int CategoriaId { get; set; }
-        public int ContaBancariaId { get; set; }
+        public int? CategoriaId { get; set; }
   
 
         public void Atualizar(Transacao transacao)
@@ -27,7 +26,6 @@ namespace IntelliBudgetApi.Application.Commands.TransacaoCommands
             transacao.DataTransacao = DataTransacao;
             transacao.Valor = Valor;
             transacao.CategoriaId = CategoriaId; 
-            transacao.ContaBancariaId = ContaBancariaId;
         }
     }
 }

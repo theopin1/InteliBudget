@@ -1,11 +1,15 @@
 ﻿using IntelliBudgetApi.Application.Commands.ContaBancariaCommands;
 using IntelliBudgetApi.Application.Commands.TransacaoCommands;
+using IntelliBudgetApi.Application.Queries.ContaBancariaQueries;
 using IntelliBudgetApi.Application.Queries.TransacaoQueries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace IntelliBudgetApi.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class TransacoesController : ControllerBase
@@ -48,10 +52,15 @@ namespace IntelliBudgetApi.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Listar([FromQuery] ListarTransacoesQuery usuarioCommand, CancellationToken cancellationToken)
+        public async Task<IActionResult> Listar(CancellationToken cancellationToken)
         {
-            var resultado = await _mediator.Send(usuarioCommand, cancellationToken);
-            return Ok(resultado);
+            var usuarioId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+            var query = new ListarTransacoesQuery { UsuarioId = usuarioId };
+
+            var result = await _mediator.Send(query, cancellationToken);
+
+            return Ok(result);
         }
     }
 }

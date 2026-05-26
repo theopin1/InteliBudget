@@ -23,6 +23,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2" />
+    <PackageReference Include="Quartz" Version="3.18.0" />
+    <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.18.0" />
+    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.18.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 

@@ -36,7 +36,6 @@ namespace IntelliBudgetApi.Application.Commands.TransacaoCommands
             transacao.DataTransacao = request.DataTransacao;
             transacao.Valor = request.Valor;
             transacao.CategoriaId = request.CategoriaId;
-            transacao.ContaBancariaId = request.ContaBancariaId;
 
             _context.Transacoes.Update(transacao);
             await _context.SaveChangesAsync(cancellationToken);
