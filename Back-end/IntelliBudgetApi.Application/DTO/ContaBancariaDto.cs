@@ -20,7 +20,7 @@ namespace IntelliBudgetApi.Application.DTO
             return new ContaBancariaDto
             {
                 Id = contaBancaria.Id,
-                NomeBanco = contaBancaria.NomeBanco,
+                NomeBanco = contaBancaria.NomeBanco,    
                 TipoConta = contaBancaria.TipoConta,
                 UsuarioId = contaBancaria.UsuarioId,
                 Saldo = contaBancaria.Saldo

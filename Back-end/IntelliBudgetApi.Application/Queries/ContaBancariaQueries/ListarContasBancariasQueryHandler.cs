@@ -23,6 +23,7 @@ namespace IntelliBudgetApi.Application.Queries.ContaBancariaQueries
         public async Task<List<ContaBancariaDto>> Handle(ListarContasBancariasQuery request, CancellationToken cancellationToken)
         {
             var transacoes = await _Context.ContasBancarias
+                .Where(x => x.UsuarioId == request.UsuarioId)
                 .Select(x => ContaBancariaDto.From(x))
                 .ToListAsync(cancellationToken);
 

@@ -6,10 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntelliBudgetApi.Application.Queries.TransacaoQueries
+namespace IntelliBudgetApi.Application.Queries.CategoriaQueries
 {
-    public class ListarTransacoesQuery : IRequest<List<TransacaoDto>>
+    public class ListarCategoriasQuery : IRequest<List<CategoriaDto>>
     {
-        public int UsuarioId { get; set; }
     }
 }

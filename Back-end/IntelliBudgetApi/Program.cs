@@ -3,13 +3,14 @@ using IntelliBudgetApi.Application.Commands.UsuarioCommands;
 using IntelliBudgetApi.Application.Services;
 using IntelliBudgetApi.Infra.Data;
 using IntelliBudgetApi.Infra.Entities;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Quartz;
+using IntelliBudgetApi.Application.Jobs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -99,6 +100,22 @@ builder.Services
     });
 
 builder.Services.AddHttpClient<PluggyService>();
+
+builder.Services.AddQuartz(q =>
+{
+    var jobKey = new JobKey("AtualizarContasBancariasJob");
+
+    q.AddJob<AtualizarContasBancariasJob>(opts => opts.WithIdentity(jobKey));
+
+    q.AddTrigger(opts => opts
+        .ForJob(jobKey)
+        .WithIdentity("AtualizarContasBancariasJob-trigger")
+        .StartNow()
+        .WithCronSchedule("0 6 * * * ?")
+    );
+});
+
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
 var app = builder.Build();
 

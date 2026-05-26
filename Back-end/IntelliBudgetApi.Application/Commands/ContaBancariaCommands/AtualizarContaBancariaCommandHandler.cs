@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace IntelliBudgetApi.Application.Commands.ContaBancariaCommands
 {
-    internal class AtualizarContaBancariaCommandHandler : IRequestHandler<AtualizarContaBancariaCommand, ContaBancariaDto>
+    public class AtualizarContaBancariaCommandHandler : IRequestHandler<AtualizarContaBancariaCommand, ContaBancariaDto>
     {
         private readonly DataContext _context;
 

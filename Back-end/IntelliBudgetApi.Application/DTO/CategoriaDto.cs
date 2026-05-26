@@ -11,10 +11,16 @@ namespace IntelliBudgetApi.Application.DTO
     public class CategoriaDto
     {
         public int Id { get; set; }
-        public TipoTransacao Tipo { get; set; }
-        public DateTime DataTransacao { get; set; }
-        public int Valor { get; set; }
-        public Categoria? Categoria { get; set; }
-        public ContaBancaria? ContaBancaria { get; set; }
+        public string Nome { get; set; }
+        public bool Essencial { get; set; }
+        public static CategoriaDto From(Categoria categoria)
+        {
+            return new CategoriaDto
+            {
+                Id = categoria.Id,
+                Nome = categoria.Nome,
+                Essencial = categoria.Essencial,
+            };
+        }
     }
 }
