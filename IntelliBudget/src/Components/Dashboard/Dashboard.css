@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ── Root ── */
+.dashboard {
+    font-family: 'DM Sans', sans-serif;
+    padding: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #f5f5f0;
+    min-height: 100vh;
+    color: #1a1a1a;
+}
+
+.dashboard h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+}
+
+/* ── Cards de resumo ── */
+.dashboard-resumo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.dashboard-card {
+    position: relative;
+    padding: 24px 28px 20px;
+    border-radius: 16px;
+    background: #ffffff;
+    border: 1px solid #e8e8e4;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+}
+
+/* ícone decorativo no canto */
+.dashboard-card::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    opacity: 0.08;
+}
+
+.dashboard-card.receita::before { background: #22c55e; }
+.dashboard-card.despesa::before { background: #ef4444; }
+.dashboard-card.saldo::before   { background: #3b82f6; }
+
+.dashboard-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* bolinha colorida ao lado do título */
+.dashboard-card h3::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.dashboard-card.receita h3::before { background: #22c55e; }
+.dashboard-card.despesa h3::before { background: #ef4444; }
+.dashboard-card.saldo h3::before   { background: #3b82f6; }
+
+.dashboard-card p {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+    line-height: 1;
+}
+
+.dashboard-card.receita p { color: #16a34a; }
+.dashboard-card.despesa p { color: #dc2626; }
+.dashboard-card.saldo p   { color: #2563eb; }
+
+/* barra colorida no fundo do card */
+.dashboard-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    border-radius: 0 0 16px 16px;
+}
+
+.dashboard-card.receita::after {
+    background: linear-gradient(90deg, #22c55e, #86efac);
+}
+.dashboard-card.despesa::after {
+    background: linear-gradient(90deg, #ef4444, #fca5a5);
+}
+.dashboard-card.saldo::after {
+    background: linear-gradient(90deg, #3b82f6, #93c5fd);
+}
+
+.dashboard-card-sub {
+    font-size: 0.78rem;
+    color: #aaa;
+    font-weight: 400;
+}
+
+/* ── Gráfico ── */
+.dashboard-grafico {
+    background: #ffffff;
+    border: 1px solid #e8e8e4;
+    border-radius: 16px;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: visible;
+}
+
+.dashboard-grafico > div {
+    overflow: visible !important;
+}
+
+.dashboard-grafico h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+    margin: 0 0 24px;
+    align-self: flex-start;
+}
+
+.dashboard-grafico p {
+    color: #aaa;
+    font-size: 0.9rem;
+}

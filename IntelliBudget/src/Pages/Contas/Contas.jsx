@@ -42,19 +42,19 @@ const Contas = () => {
     useEffect(() => {
         const fetchContas = async () => {
             try {
-                const response = await axios.get(contaBancariaUrl);
+                const response = await axiosPrivate.get(contaBancariaUrl);
                 setContas(response.data);
             } catch (err) {
                 setErrMsg('Erro ao carregar contas');
             }
         };
         fetchContas();
-    }, []);
+    }, [axiosPrivate]);
 
     const handleConnect = async () =>
     {
         try {
-            const response = await axios.get(connectTokenUrl,);
+            const response = await axiosPrivate.get(connectTokenUrl,);
             setConnectToken(response.data);
             setSuccess(true);    
         }catch (err) {
@@ -71,14 +71,14 @@ const Contas = () => {
 
     const handleAdd = async (formData) => {
         try {
-            await axios.post(contaBancariaUrl, {
+            await axiosPrivate.post(contaBancariaUrl, {
                 nomeBanco: formData.Banco,
                 tipoConta: formData.TipoConta,
                 saldo: parseFloat(formData.Saldo),
             });
 
 
-            const response = await axios.get(contaBancariaUrl);
+            const response = await axiosPrivate.get(contaBancariaUrl);
             setContas(response.data);
         } catch (err) {
             if (!err?.response) {
@@ -96,12 +96,12 @@ const Contas = () => {
 
     const handleEdit = async (id, formData) => {
         try {
-            await axios.put(`${contaBancariaUrl}/${id}`, {
+            await axiosPrivate.put(`${contaBancariaUrl}/${id}`, {
                 nomeBanco: formData.Banco,
                 tipoConta: formData.TipoConta,
                 saldo: parseFloat(formData.Saldo),
             });
-            const response = await axios.get(contaBancariaUrl);
+            const response = await axiosPrivate.get(contaBancariaUrl);
             setContas(response.data);
         } catch (err) {
             setErrMsg('Erro ao editar conta');
@@ -111,8 +111,8 @@ const Contas = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`${contaBancariaUrl}/${id}`);
-            const response = await axios.get(contaBancariaUrl);
+            await axiosPrivate.delete(`${contaBancariaUrl}/${id}`);
+            const response = await axiosPrivate.get(contaBancariaUrl);
             setContas(response.data);
         } catch (err) {
             setErrMsg('Erro ao excluir conta');

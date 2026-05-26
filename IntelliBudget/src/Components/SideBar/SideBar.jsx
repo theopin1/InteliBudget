@@ -1,5 +1,5 @@
 import './SideBar.css';
-import { MdSmartToy, MdAttachMoney, MdTrackChanges, MdLogout, MdSettings, MdAccountBalance } from 'react-icons/md';
+import { MdSmartToy, MdHome, MdAttachMoney, MdTrackChanges, MdLogout, MdSettings, MdAccountBalance } from 'react-icons/md';
 
 const SideBar = () => {
     return (
@@ -7,6 +7,7 @@ const SideBar = () => {
             <h2>Menu</h2>
             <nav className="sidebar-nav">
                  <ul>
+                    <li><a href="/Home"><MdHome />Home</a></li>
                     <li><a href="/Transacoes"><MdAttachMoney />Explorar gastos</a></li>
                     <li><a href="#"><MdSmartToy />Chatbot</a></li>
                     <li><a href="#"><MdTrackChanges />Metas</a></li>
