@@ -1,16 +1,18 @@
 using IntelliBudgetApi.Api.Controllers;
 using IntelliBudgetApi.Application.Commands.UsuarioCommands;
+using IntelliBudgetApi.Application.Jobs;
 using IntelliBudgetApi.Application.Services;
 using IntelliBudgetApi.Infra.Data;
 using IntelliBudgetApi.Infra.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.AI;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
+using OllamaSharp;
 using Quartz;
-using IntelliBudgetApi.Application.Jobs;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,20 @@ builder.Services.AddControllers()
     .AddApplicationPart(typeof(AuthController).Assembly);
 
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSingleton<IChatClient>(_ =>
+{
+    var httpClient = new HttpClient 
+    { 
+        BaseAddress = new Uri("http://127.0.0.1:11434"), 
+        Timeout = TimeSpan.FromMinutes(10) 
+    };
+    IChatClient ollamaClient = new OllamaApiClient(httpClient, "llama3.1");
+    return ollamaClient
+        .AsBuilder()
+        .UseFunctionInvocation()
+        .Build();
+});
 
 builder.Services.AddSwaggerGen(options =>
 {

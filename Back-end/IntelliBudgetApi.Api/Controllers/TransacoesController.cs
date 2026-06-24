@@ -1,4 +1,4 @@
-﻿using IntelliBudgetApi.Application.Commands.ContaBancariaCommands;
+using IntelliBudgetApi.Application.Commands.ContaBancariaCommands;
 using IntelliBudgetApi.Application.Commands.TransacaoCommands;
 using IntelliBudgetApi.Application.Queries.ContaBancariaQueries;
 using IntelliBudgetApi.Application.Queries.TransacaoQueries;
@@ -52,11 +52,17 @@ namespace IntelliBudgetApi.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Listar(CancellationToken cancellationToken)
+        public async Task<IActionResult> Listar([FromQuery] int? quantidade, [FromQuery] DateTime? dataInicio, [FromQuery] DateTime? dataFim, CancellationToken cancellationToken)
         {
             var usuarioId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-            var query = new ListarTransacoesQuery { UsuarioId = usuarioId };
+            var query = new ListarTransacoesQuery 
+            { 
+                UsuarioId = usuarioId,
+                Quantidade = quantidade,
+                DataInicio = dataInicio,
+                DataFim = dataFim
+            };
 
             var result = await _mediator.Send(query, cancellationToken);
 

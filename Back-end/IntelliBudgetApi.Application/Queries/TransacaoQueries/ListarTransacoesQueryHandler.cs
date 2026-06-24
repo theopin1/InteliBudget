@@ -1,4 +1,4 @@
-﻿using IntelliBudgetApi.Application.DTO;
+using IntelliBudgetApi.Application.DTO;
 using IntelliBudgetApi.Infra.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -23,14 +23,31 @@ namespace IntelliBudgetApi.Application.Queries.TransacaoQueries
         {
 
 
-            var transacoes = await _Context.Transacoes
+            var query = _Context.Transacoes
                 .Include(x => x.Categoria)
                 .Include(x => x.ContaBancaria)
-                .Where(x => x.ContaBancaria.UsuarioId == request.UsuarioId)
+                .Where(x => x.ContaBancaria.UsuarioId == request.UsuarioId);
+
+            if (request.DataInicio.HasValue)
+            {
+                query = query.Where(x => x.DataTransacao >= request.DataInicio.Value);
+            }
+
+            if (request.DataFim.HasValue)
+            {
+                query = query.Where(x => x.DataTransacao <= request.DataFim.Value);
+            }
+
+            query = query.OrderByDescending(x => x.DataTransacao);
+
+            if (request.Quantidade.HasValue)
+            {
+                query = query.Take(request.Quantidade.Value);
+            }
+
+            var transacoes = await query
                 .Select(x => TransacaoDto.From(x))
                 .ToListAsync(cancellationToken);
-
-
 
             return transacoes;
         }
