@@ -28,7 +28,7 @@ builder.Services.AddSingleton<IChatClient>(_ =>
         BaseAddress = new Uri("http://127.0.0.1:11434"), 
         Timeout = TimeSpan.FromMinutes(10) 
     };
-    IChatClient ollamaClient = new OllamaApiClient(httpClient, "llama3.1");
+    IChatClient ollamaClient = new OllamaApiClient(httpClient, "qwen2.5:1.5b");
     return ollamaClient
         .AsBuilder()
         .UseFunctionInvocation()

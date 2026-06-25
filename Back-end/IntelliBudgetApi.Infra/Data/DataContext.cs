@@ -18,6 +18,7 @@ namespace IntelliBudgetApi.Infra.Data
         public DbSet<ContaBancaria> ContasBancarias { get; set; }
         public DbSet<Transacao> Transacoes { get; set; }
         public DbSet<ItemBancoUsuario> itemBancoUsuarios { get; set; }
+        public DbSet<Meta> metas { get; set; }
 
         protected DataContext() 
         { }
