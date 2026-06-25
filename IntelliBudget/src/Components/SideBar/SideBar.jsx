@@ -1,4 +1,5 @@
 import './SideBar.css';
+import { NavLink } from 'react-router-dom';
 import { MdSmartToy, MdHome, MdAttachMoney, MdTrackChanges, MdLogout, MdSettings, MdAccountBalance } from 'react-icons/md';
 
 const SideBar = () => {
@@ -7,13 +8,13 @@ const SideBar = () => {
             <h2>Menu</h2>
             <nav className="sidebar-nav">
                  <ul>
-                    <li><a href="/Home"><MdHome />Home</a></li>
-                    <li><a href="/Transacoes"><MdAttachMoney />Explorar gastos</a></li>
-                    <li><a href="#"><MdSmartToy />Chatbot</a></li>
-                    <li><a href="#"><MdTrackChanges />Metas</a></li>
-                    <li><a href="/Contas"><MdAccountBalance />Contas</a></li>
-                    <li><a href="#"><MdSettings />Configurações</a></li>
-                    <li><a href="#"><MdLogout />Sair</a></li>
+                    <li><NavLink to="/home"><MdHome />Home</NavLink></li>
+                    <li><NavLink to="/transacoes"><MdAttachMoney />Explorar gastos</NavLink></li>
+                    <li><NavLink to="/chatbot"><MdSmartToy />Chatbot</NavLink></li>
+                    <li><NavLink to="/metas"><MdTrackChanges />Metas</NavLink></li>
+                    <li><NavLink to="/contas"><MdAccountBalance />Contas</NavLink></li>
+                    <li><NavLink to="#"><MdSettings />Configurações</NavLink></li>
+                    <li><NavLink to="#"><MdLogout />Sair</NavLink></li>
                 </ul>
             </nav>
         </aside>

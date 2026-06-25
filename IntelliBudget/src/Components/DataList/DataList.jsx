@@ -61,9 +61,12 @@ const DataList = ({
           {groups.map((group, groupIndex) => (
             <li key={groupIndex} className="datalist-group">
               {group.fields.map((field, index) => (
-                <div key={index} className="datalist-item">
-                  <span className="datalist-label">{field.label}</span>
-                  <span className="datalist-value">{field.value}</span>
+                <div key={index} className={field.fullWidth ? 'datalist-item datalist-item--full' : 'datalist-item'}>
+                  {!field.fullWidth && <span className="datalist-label">{field.label}</span>}
+                  {field.render
+                    ? field.render()
+                    : <span className="datalist-value">{field.value}</span>
+                  }
                 </div>
               ))}
               <div className="datalist-actions">

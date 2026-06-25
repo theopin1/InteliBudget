@@ -85,6 +85,13 @@ body {
     border-bottom: 1px solid #f3f4f6;
 }
 
+/* item que ocupa largura total (ex: barra de progresso) */
+.datalist-item--full {
+    display: block;
+    border-bottom: none !important;
+    padding: 0;
+}
+
 .datalist-label {
     font-size: 0.78rem;
     font-weight: 500;
